@@ -1,15 +1,55 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
+
+
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Create a User instance with sample data
+        User user = new User(); // Replace with actual User initialization
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        int userId = user.getId();
+        String name = user.getName();
+
+        System.out.println("Hello " + name);
+
+        Scanner input = new Scanner(System.in);
+        int userInput = 0;
+
+
+        do {
+            System.out.println("Choose: 1-Creat Reservation 2-Show Reservation 3-Update Reservation 4-Delete Reservation 5-Exit");
+
+
+            if (input.hasNextInt()) {
+                userInput = input.nextInt();
+
+                switch (userInput) {
+                    case 1:
+                        System.out.println("Creating reservation...");
+                        break;
+                    case 2:
+                        System.out.println("Showing reservation...");
+                        break;
+                    case 3:
+                        System.out.println("Updating reservation...");
+                        break;
+                    case 4:
+                        System.out.println("Deleting reservation...");
+                        break;
+                    case 5:
+                        System.out.println("Exiting...");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                        break;
+                }
+            } else {
+
+                System.out.println("Invalid input. Please enter a number.");
+                input.next();
+            }
+        } while (userInput != 5);
+
+        input.close();
     }
 }
