@@ -22,7 +22,7 @@ public class User {
     }
 
 
-    public int
+
 
     public String createReservation(Date dateStart, Date dateEnd) {
 
