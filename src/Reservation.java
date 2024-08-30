@@ -1,15 +1,61 @@
 import java.util.Date;
-import java.util.List;
 
 public class Reservation {
-    private Integer idUser;
+    private int idReservation;
+    private int idUser;
     private Integer idRoom;
     private Date dateStart;
     private Date dateEnd;
 
-    public List<Reservation>getReservations(){
-
-
+    // Constructor
+    public Reservation(Integer idReservation,Integer idUser, Integer idRoom, Date dateStart, Date dateEnd) {
+        this.idReservation = idReservation;
+        this.idUser = idUser;
+        this.idRoom = idRoom;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
     }
 
+    // Getters
+    public Integer getIdReservation() {
+        return idReservation;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public Integer getIdRoom() {
+        return idRoom;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    // Setters
+    public void setIdReservation(Integer idReservation) {
+        this.idReservation = idReservation;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+    @Override
+    public String toString() {
+        return "Reservation{id=" + idReservation +
+                ", userId=" + idUser +
+                ",\n roomId=" + idRoom +
+                ",\n  dateStart=" + dateStart +
+                ",\n  dateEnd=" + dateEnd +
+                "}";
+    }
 }
