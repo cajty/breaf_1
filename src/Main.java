@@ -1,5 +1,7 @@
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
-
+import java.util.Date;
 
 
 public class Main {
@@ -11,24 +13,34 @@ public class Main {
         String name = user.getName();
 
         System.out.println("Hello " + name);
-
+        Hotel hotel = new Hotel();
         Scanner input = new Scanner(System.in);
         int userInput = 0;
-
+        String dateStart = "";
+        String dateEnd = "";
 
         do {
-            System.out.println("Choose: 1-Creat Reservation 2-Show Reservation 3-Update Reservation 4-Delete Reservation 5-Exit");
+            System.out.println("Choose: \n 1-Creat Reservation \n 2-Show Reservation \n 3-Update Reservation \n 4-Delete Reservation \n 5-Exit");
 
 
             if (input.hasNextInt()) {
                 userInput = input.nextInt();
 
+
                 switch (userInput) {
                     case 1:
-                        System.out.println("Creating reservation...");
+                        System.out.println("Enter date start form: dd-MM-yyyy");
+                        dateStart = input.nextLine();
+                        System.out.println("Enter date End form: dd-MM-yyyy");
+                        dateEnd = input.nextLine();
+                        System.out.println(dateStart + "\n " + dateEnd);
+
+
+//                        boolean test = hotel.createReservation(userId, dateStart, dateEnd);
                         break;
                     case 2:
-                        System.out.println("Showing reservation...");
+                        HashMap<Integer, List<Reservation>> reservationsMap  = hotel.getReservationsMap();
+                        System.out.println(reservationsMap);
                         break;
                     case 3:
                         System.out.println("Updating reservation...");
