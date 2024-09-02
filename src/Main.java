@@ -14,13 +14,16 @@ public class Main {
 
         System.out.println("Hello " + name);
         Hotel hotel = new Hotel();
-        Scanner input = new Scanner(System.in);
+        Scanner input = Helper.getScanner();
         int userInput = 0;
         String dateStart = "";
         String dateEnd = "";
 
         do {
-            System.out.println("Choose: \n 1-Creat Reservation \n 2-Show Reservation \n 3-Update Reservation \n 4-Delete Reservation \n 5-Exit");
+            System.out.println("--Choose--\n" +
+                    "=============================================================================================" +
+                    "\n1-Creat Reservation \n 2-Show Reservation \n 3-Update Reservation \n 4-Delete Reservation \n 5-Exit" +
+                    "\n============================================================");
 
 
             if (input.hasNextInt()) {
@@ -29,25 +32,29 @@ public class Main {
 
                 switch (userInput) {
                     case 1:
-                        System.out.println("Enter date start form: dd-MM-yyyy");
-                        dateStart = input.nextLine();
-                        System.out.println("Enter date End form: dd-MM-yyyy");
-                        dateEnd = input.nextLine();
-                        System.out.println(dateStart + "\n " + dateEnd);
+                        Date[] reservationData = Helper.inputAndValidateDates();
 
 
-//                        boolean test = hotel.createReservation(userId, dateStart, dateEnd);
+                        boolean test = hotel.createReservation(userId,reservationData);
                         break;
                     case 2:
                         HashMap<Integer, List<Reservation>> reservationsMap  = hotel.getReservationsMap();
                         System.out.println(reservationsMap);
                         break;
                     case 3:
-                        System.out.println("Updating reservation...");
+                        int RevToUpdate= Helper.getIdReservationFromUser();
+                        Date[] updateDate = Helper.inputAndValidateDates();
+                        boolean isUpdate = hotel.updateReservation(RevToUpdate,updateDate);
                         break;
                     case 4:
-                        System.out.println("Deleting reservation...");
-                        break;
+                            int RevToDelete = Helper.getIdReservationFromUser();
+                            boolean isDelete = hotel.deleteReservation(RevToDelete);
+                            if (isDelete) {
+                                System.out.println("Reservation has been deleted");
+                            }else {
+                                System.out.println("Reservation has not been deleted");
+                            }
+                            break;
                     case 5:
                         System.out.println("Exiting...");
                         break;

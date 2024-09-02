@@ -8,26 +8,22 @@ public class Hotel {
     private int nextReservationId = 0;  // Start ID from 0
 
     public Hotel() {
-
-
-        // Create 4 rooms (with IDs 1, 2, 3, 4) and initialize them with empty reservation lists
         for (int roomId = 1; roomId <= 4; roomId++) {
             reservationsMap.put(roomId, new ArrayList<>());  // Each room has an empty list of reservations
         }
-
-        System.out.println("Hotel initialized with 4 rooms and no reservations.");
     }
 
     // Create a new reservation without taking roomId as a parameter
-    public boolean createReservation(int userId, Date dateStart, Date dateEnd) {
-        Integer roomId = isValidReservation(dateStart, dateEnd);
+    public boolean createReservation(int userId, Date[] dates) {
+        //  dates[0] = dateStart ,  dates[1] = dateEnd
+        Integer roomId = isValidReservation(dates[0],dates[1] );
         if (roomId == null) {
             System.out.println("Error: No valid room found or the dates overlap with an existing reservation.");
             return false;
         }
 
         // Create a new reservation object
-        Reservation newReservation = new Reservation(++nextReservationId,userId, roomId, dateStart, dateEnd);
+        Reservation newReservation = new Reservation(++nextReservationId,userId, roomId, dates[0],dates[1]);
         // Set the auto-incremented ID
         System.out.println(nextReservationId);
         System.out.println("New reservation created: " + newReservation.getDateStart());
@@ -44,10 +40,6 @@ public class Hotel {
 
     // Validates if the reservation is valid and returns a roomId if valid, null otherwise
     private Integer isValidReservation(Date dateStart, Date dateEnd) {
-        if (dateStart.after(dateEnd)) {
-            System.out.println("Error: Start date must be before end date.");
-            return null;
-        }
 
         // Loop through all rooms to find a valid roomId
         for (Integer roomId : reservationsMap.keySet()) {
@@ -93,12 +85,18 @@ public class Hotel {
         System.out.println("Error: Reservation with ID " + reservationId + " not found.");
         return false;
     }
-//
-//   public  boolean updateReservation(Integer idReservation, Date dateStart, Date dateEnd) {
-//        boolean isDeleted = deleteReservation(idReservation);
-//
-//
-//   }
+
+  public  boolean updateReservation(Integer idReservation, Date[] dates) {
+      //  dates[0] = dateStart ,  dates[1] = dateEnd
+      Integer roomId = isValidReservation(dates[0],dates[1] );
+      if (roomId == null) {
+          System.out.println("Error: No valid room found or the dates overlap with an existing reservation.");
+          return false;
+      }
+       boolean isDeleted = deleteReservation(idReservation);
+
+      return isDeleted;
+  }
 
 
     public HashMap<Integer, List<Reservation>> getReservationsMap() {
