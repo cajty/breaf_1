@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Hotel {
     private final HashMap<Integer, List<Reservation>> reservationsMap = new HashMap<>();
-    private int nextReservationId = 0;  // Start ID from 0
+    private   int nextReservationId = 0;  // Start ID from 0
 
     public Hotel() {
         for (int roomId = 1; roomId <= 4; roomId++) {
@@ -124,7 +124,7 @@ public class Hotel {
                 }
             }
         }
-        System.out.println("Error: Reservation with ID " + reservationId + " not found.");
+        System.out.println("Reservation with ID " + reservationId + " not found.");
         return false;
     }
 

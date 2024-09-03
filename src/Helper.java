@@ -97,7 +97,7 @@ public class Helper {
             try {
                 System.out.println("Enter id of reservation:");
                 id = input.nextInt();
-                validInput = true; // Input is valid, exit loop
+                validInput = true;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a valid number.");
                 input.next();
