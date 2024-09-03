@@ -1,17 +1,14 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Helper {
     private static Scanner scannerInstance;
 
-    private Helper (){
-
+    private Helper() {
     }
-
 
     public static Scanner getScanner() {
         if (scannerInstance == null) {
@@ -20,75 +17,75 @@ public class Helper {
         return scannerInstance;
     }
 
-    public static boolean isValidDateFormat(String dateStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        formatter.setLenient(false);
+//    public static boolean isValidDateFormat(String dateStr) {
+//        LocalDate today = LocalDate.now();
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//
+//        try {
+//             LocalDate.parse(dateStr, formatter);
+//
+//            if(today.isAfter(endDate)){
+//                return false;
+//            }
+//            return true;
+//        } catch (DateTimeParseException e) {
+//            return false;
+//        }
+//    }
+
+    public static LocalDate convertToDate(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate today = LocalDate.now();
 
         try {
-            // Try to parse the date string
-            formatter.parse(dateStr);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
-
-
-
-    public static Date convertToDate(String dateStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        formatter.setLenient(false); // Ensures strict parsing of the date format
-
-        try {
-            // Parse the date string into a Date object
-            return formatter.parse(dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            if (LocalDate.parse(dateStr, formatter).isAfter(today)) {
+                return LocalDate.parse(dateStr, formatter);
+            }
+            return null;
+        } catch (DateTimeParseException e) {
             return null;
         }
     }
 
-
-    public static Date[] inputAndValidateDates() {
-
+    public static LocalDate[] inputAndValidateDates() {
         Scanner input = getScanner();
         String dateStart;
         String dateEnd;
-        Date startDate = null;
-        Date endDate = null;
+        LocalDate startDate = null;
+        LocalDate endDate = null;
+
 
         while (startDate == null || endDate == null) {
-            System.out.println("Enter date start (format: dd-MM-yyyy):");
+            System.out.println("Enter date start (format: yyyy-MM-dd):");
             dateStart = input.nextLine();
-            input.nextLine();
+            startDate = convertToDate(dateStart);
 
-            if (!isValidDateFormat(dateStart)) {
+            if ( startDate == null) {
                 System.out.println("Invalid date format for start date. Please try again.");
                 continue;
             }
 
-            System.out.println("Enter date end (format: dd-MM-yyyy):");
+            System.out.println("Enter date end (format: yyyy-MM-dd):");
             dateEnd = input.nextLine();
-            input.nextLine();
-
-            if (!isValidDateFormat(dateEnd)) {
+            endDate = convertToDate(dateEnd);
+            if (endDate == null) {
                 System.out.println("Invalid date format for end date. Please try again.");
                 continue;
             }
 
-            startDate = convertToDate(dateStart);
-            endDate = convertToDate(dateEnd);
 
 
-            if (startDate != null && endDate != null && startDate.after(endDate)) {
+
+
+            if (startDate.isAfter(endDate)) {
                 System.out.println("Error: Start date must be before end date.");
                 startDate = null;
                 endDate = null;
             }
-
         }
 
-        return new Date[]{startDate, endDate};
+        return new LocalDate[]{startDate, endDate};
     }
 
     public static int getIdReservationFromUser() {
@@ -109,6 +106,4 @@ public class Helper {
 
         return id;
     }
-
-
 }

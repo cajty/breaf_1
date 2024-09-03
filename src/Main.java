@@ -1,7 +1,6 @@
-import java.util.HashMap;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.Date;
+
 
 
 public class Main {
@@ -32,19 +31,18 @@ public class Main {
 
                 switch (userInput) {
                     case 1:
-                        Date[] reservationData = Helper.inputAndValidateDates();
+                        LocalDate[] reservationData = Helper.inputAndValidateDates();
 
 
                         boolean test = hotel.createReservation(userId,reservationData);
                         break;
                     case 2:
-                        HashMap<Integer, List<Reservation>> reservationsMap  = hotel.getReservationsMap();
-                        System.out.println(reservationsMap);
+                        hotel.getReservationsOfUser(userId);
                         break;
                     case 3:
                         int RevToUpdate= Helper.getIdReservationFromUser();
-                        Date[] updateDate = Helper.inputAndValidateDates();
-                        boolean isUpdate = hotel.updateReservation(RevToUpdate,updateDate);
+                        LocalDate[] updateDate = Helper.inputAndValidateDates();
+                        boolean isUpdate = hotel.updateReservation(RevToUpdate,updateDate,userId);
                         break;
                     case 4:
                             int RevToDelete = Helper.getIdReservationFromUser();

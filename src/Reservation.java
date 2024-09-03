@@ -1,14 +1,15 @@
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Reservation {
     private int idReservation;
     private int idUser;
     private Integer idRoom;
-    private Date dateStart;
-    private Date dateEnd;
+    private LocalDate dateStart;
+    private LocalDate dateEnd;
 
     // Constructor
-    public Reservation(Integer idReservation,Integer idUser, Integer idRoom, Date dateStart, Date dateEnd) {
+    public Reservation(Integer idReservation,Integer idUser, Integer idRoom, LocalDate dateStart, LocalDate dateEnd) {
         this.idReservation = idReservation;
         this.idUser = idUser;
         this.idRoom = idRoom;
@@ -29,11 +30,11 @@ public class Reservation {
         return idRoom;
     }
 
-    public Date getDateStart() {
+    public LocalDate getDateStart() {
         return dateStart;
     }
 
-    public Date getDateEnd() {
+    public LocalDate getDateEnd() {
         return dateEnd;
     }
 
@@ -42,19 +43,21 @@ public class Reservation {
         this.idReservation = idReservation;
     }
 
-    public void setDateStart(Date dateStart) {
+    public void setDateStart(LocalDate dateStart) {
         this.dateStart = dateStart;
     }
 
-    public void setDateEnd(Date dateEnd) {
+    public void setDateEnd(LocalDate dateEnd) {
         this.dateEnd = dateEnd;
     }
     @Override
     public String toString() {
-        return "Reservation : \n id  =  " + idReservation +
-                "\n, room = " + idRoom +
-                "\n  date Start = " + dateStart +
-                "\n  date End = " + dateEnd
+        return "\n_______________________" +
+                "\nReservation id :  =  " + idReservation +
+                "\nroom = " + idRoom +
+                "\ndate Start = " + dateStart +
+                "\ndate End = " + dateEnd +
+                "\n_______________________"
                 ;
     }
 }
