@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Create a User instance with sample data
-        User user = new User(); // Replace with actual User initialization
+
+        User user = new User();
 
         int userId = user.getId();
         String name = user.getName();
@@ -15,14 +15,15 @@ public class Main {
         Hotel hotel = new Hotel();
         Scanner input = Helper.getScanner();
         int userInput = 0;
-        String dateStart = "";
-        String dateEnd = "";
+
+
 
         do {
-            System.out.println("--Choose--\n" +
-                    "=============================================================================================" +
-                    "\n1-Creat Reservation \n 2-Show Reservation \n 3-Update Reservation \n 4-Delete Reservation \n 5-Exit" +
-                    "\n============================================================");
+            System.out.println("\n--Choose--\n" +
+                    "========================================================================" +
+                    "\n1-Creat Reservation \n 2-Show Reservation " +
+                    "\n 3-Update Reservation \n 4-Delete Reservation \n 5-Exit" +
+                    "\n========================================================================");
 
 
             if (input.hasNextInt()) {
@@ -31,26 +32,32 @@ public class Main {
 
                 switch (userInput) {
                     case 1:
+
                         LocalDate[] reservationData = Helper.inputAndValidateDates();
 
-
-                        boolean test = hotel.createReservation(userId,reservationData);
+                        hotel.createReservation(userId,reservationData);
                         break;
                     case 2:
                         hotel.getReservationsOfUser(userId);
                         break;
                     case 3:
-                        int RevToUpdate= Helper.getIdReservationFromUser();
-                        LocalDate[] updateDate = Helper.inputAndValidateDates();
-                        boolean isUpdate = hotel.updateReservation(RevToUpdate,updateDate,userId);
-                        break;
+                            int RevToUpdate= Helper.getIdReservationFromUser();
+                            LocalDate[] updateDate = Helper.inputAndValidateDates();
+                            boolean isUpdate = hotel.updateReservation(RevToUpdate,updateDate,userId);
+
+                            if(isUpdate){
+                                System.out.println("Reservation has been updated");
+                            }else{
+                                System.out.println("Reservation has not been updated");
+                            }
+                            break;
                     case 4:
                             int RevToDelete = Helper.getIdReservationFromUser();
                             boolean isDelete = hotel.deleteReservation(RevToDelete);
                             if (isDelete) {
                                 System.out.println("Reservation has been deleted");
                             }else {
-                                System.out.println("Reservation has not been deleted");
+                                System.out.println("Reservation  not found.");
                             }
                             break;
                     case 5:

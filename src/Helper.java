@@ -5,7 +5,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Helper {
+
+
     private static Scanner scannerInstance;
+
 
     private Helper() {
     }
@@ -17,22 +20,6 @@ public class Helper {
         return scannerInstance;
     }
 
-//    public static boolean isValidDateFormat(String dateStr) {
-//        LocalDate today = LocalDate.now();
-//
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//
-//        try {
-//             LocalDate.parse(dateStr, formatter);
-//
-//            if(today.isAfter(endDate)){
-//                return false;
-//            }
-//            return true;
-//        } catch (DateTimeParseException e) {
-//            return false;
-//        }
-//    }
 
     public static LocalDate convertToDate(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -48,7 +35,9 @@ public class Helper {
         }
     }
 
+
     public static LocalDate[] inputAndValidateDates() {
+
         Scanner input = getScanner();
         String dateStart;
         String dateEnd;
@@ -58,6 +47,7 @@ public class Helper {
 
         while (startDate == null || endDate == null) {
             System.out.println("Enter date start (format: yyyy-MM-dd):");
+            input.nextLine();
             dateStart = input.nextLine();
             startDate = convertToDate(dateStart);
 
@@ -74,12 +64,8 @@ public class Helper {
                 continue;
             }
 
-
-
-
-
             if (startDate.isAfter(endDate)) {
-                System.out.println("Error: Start date must be before end date.");
+                System.out.println("Start date must be before end date.");
                 startDate = null;
                 endDate = null;
             }
@@ -87,6 +73,7 @@ public class Helper {
 
         return new LocalDate[]{startDate, endDate};
     }
+
 
     public static int getIdReservationFromUser() {
         Scanner input = getScanner();
